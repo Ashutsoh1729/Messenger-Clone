@@ -11,6 +11,7 @@ import { FieldValues, useForm, SubmitHandler, RegisterOptions, UseFormRegisterRe
 import AuthSocialButton from "./AuthSocialButton";
 import { IconBaseProps } from "react-icons";
 import { toast } from "react-hot-toast";
+import {signIn} from "next-auth/react"
 
 type Variant = "LOGIN" | "REGISTER"
 
@@ -54,19 +55,42 @@ const AuthForm = () => {
             axios.post("/api/register", data)
                 .then(() => {
                     toast.success("Successfully Registered.")
+                }).catch(() => {
+                    toast.error("Something went wrong.")
+                }).finally(() => {
                     setIsLoading(false)
                 })
         }
 
         if (variant === "LOGIN") {
             // Next-auth Sign In 
+            signIn("credentials", {
+                ...data,
+                redirect: false
+            })
+                .then((callback) => {
+                    if (callback?.error) {
+                        toast.error("Invalid Credentials.")
+                    } else if (callback?.ok && !callback?.error) {   
+                        toast.success("Login Successful.")
+                    }
+                })
+                .finally(() => setIsLoading(false));
         }
     }
 
     const SocialAction = (action: string) => {
         setIsLoading(true);
-
-        // NextAuth social ignIn
+        signIn(action, {redirect: false})
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error("Invalid Credentials.")
+                } else if (callback?.ok && !callback?.error) {
+                    toast.success("Login Successful.")
+                }
+            })
+            .finally(() => setIsLoading(false));
+       
     }
 
 
