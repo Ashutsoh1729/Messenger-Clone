@@ -4,11 +4,13 @@ import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
 
 import { BsGithub, BsGoogle } from "react-icons/bs"
+import axios from "axios";
 
 import { useState, useCallback } from "react"
 import { FieldValues, useForm, SubmitHandler, RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
 import { IconBaseProps } from "react-icons";
+import { toast } from "react-hot-toast";
 
 type Variant = "LOGIN" | "REGISTER"
 
@@ -48,7 +50,12 @@ const AuthForm = () => {
         setIsLoading(true);
 
         if (variant === 'REGISTER') {
-            // axios code
+            // axios code for registration
+            axios.post("/api/register", data)
+                .then(() => {
+                    toast.success("Successfully Registered.")
+                    setIsLoading(false)
+                })
         }
 
         if (variant === "LOGIN") {
