@@ -4,14 +4,15 @@ import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
 
 import { BsGithub, BsGoogle } from "react-icons/bs"
+import {useRouter} from "next/navigation"
 import axios from "axios";
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { FieldValues, useForm, SubmitHandler, RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
 import { IconBaseProps } from "react-icons";
 import { toast } from "react-hot-toast";
-import {signIn} from "next-auth/react"
+import {signIn, useSession} from "next-auth/react"
 
 type Variant = "LOGIN" | "REGISTER"
 
@@ -19,6 +20,17 @@ const AuthForm = () => {
 
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    // It give us access to loged users data
+    const session = useSession();
+    
+    useEffect(() => {
+        if (session.status == "authenticated") {
+            router.push("/users")
+        }
+    }, [session.status, router])
+
+    
 
     const toggleVariant = useCallback(
         () => {
@@ -73,6 +85,7 @@ const AuthForm = () => {
                         toast.error("Invalid Credentials.")
                     } else if (callback?.ok && !callback?.error) {   
                         toast.success("Login Successful.")
+                        router.push("/users")
                     }
                 })
                 .finally(() => setIsLoading(false));
@@ -87,6 +100,7 @@ const AuthForm = () => {
                     toast.error("Invalid Credentials.")
                 } else if (callback?.ok && !callback?.error) {
                     toast.success("Login Successful.")
+                    router.push("/users")
                 }
             })
             .finally(() => setIsLoading(false));

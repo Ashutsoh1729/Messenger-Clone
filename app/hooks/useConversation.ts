@@ -1,0 +1,29 @@
+import { useParams } from "next/navigation"
+import { useMemo } from "react";
+
+
+const useConversation = () => {
+    const params = useParams();
+    const conversationId = useMemo(() => {
+        if (!params?.conversationId) {
+            return ""
+        }
+
+        return params?.conversationId as string
+    }, [params?.conversationId])
+    
+    // Here the conversationId is act as a boolean as double `!` is used, don't use single `!` mark
+    const isOpen = useMemo(()=> !!conversationId,[conversationId])
+
+
+
+    return useMemo(() => ({
+        isOpen,
+        conversationId
+    }), [
+        isOpen,
+        conversationId 
+    ])
+}
+
+export default useConversation

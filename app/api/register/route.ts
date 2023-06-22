@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"
 export async function POST(
     response: Response
 ) {
-   try {
+try {
     const body = await response.json();
     
     const {
@@ -34,10 +34,10 @@ export async function POST(
 
     return NextResponse.json(user);
 
-   } catch (error: any) {
-       
-       console.log(error, "Registration Error");
-       return new NextResponse("Internal Error", { status: 500 });
+} catch (error: any) {
+
+    console.log(error, "Registration Error");
+    return new NextResponse("Internal Error", { status: 500 });
 }
 
 
