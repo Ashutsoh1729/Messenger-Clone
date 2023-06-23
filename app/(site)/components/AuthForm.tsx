@@ -65,9 +65,9 @@ const AuthForm = () => {
         if (variant === 'REGISTER') {
             // axios code for registration
             axios.post("/api/register", data)
-                .then(() => {
-                    toast.success("Successfully Registered.")
-                }).catch(() => {
+                .then(() => signIn(
+                    "credentials", {...data,redirect:false}
+                )).catch(() => {
                     toast.error("Something went wrong.")
                 }).finally(() => {
                     setIsLoading(false)

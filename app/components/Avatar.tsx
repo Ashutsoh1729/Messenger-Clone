@@ -13,7 +13,7 @@ const Avatar:React.FC<AvatarProps> = ({user}) => {
 
 
     return (
-        <div className='relative'>
+        <div className='relative flex items-center'>
 
         <div
             className='
