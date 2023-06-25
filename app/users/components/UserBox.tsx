@@ -1,3 +1,4 @@
+'use client'
 import Avatar from '@/app/components/Avatar';
 import { User } from '@prisma/client';
 import axios from 'axios';
