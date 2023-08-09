@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import useConversation from '../hooks/useConversation'
+import useConversation from '../hooks/use-conversation'
 import EmptyState from '../components/EmptyState';
 import clsx from 'clsx';
 
@@ -8,7 +8,7 @@ const page = () => {
 
     const { isOpen } = useConversation();
 
-    
+
     return (
         <div
             className={clsx(`
@@ -16,7 +16,7 @@ const page = () => {
                 isOpen ? "block" : "hidden"
             )}
         >
-            <EmptyState/>
+            <EmptyState />
         </div>
     )
 }

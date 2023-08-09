@@ -4,7 +4,7 @@ import React from 'react'
 
 
 interface AvatarProps{
-    user?: User;
+    user?: User | null | { name?: string| null, email?: string|null, image?: string| null};
 }
 
 

@@ -4,7 +4,7 @@ import { FullConversationType } from '@/app/types';
 import React, { useState } from 'react';
 import { MdOutlineGroupAdd } from "react-icons/md"
 import clsx from 'clsx';
-import useConversation from '@/app/hooks/useConversation';
+import useConversation from '@/app/hooks/use-conversation';
 import { useRouter } from 'next/navigation';
 import ConversationBox from './ConversationBox';
 
@@ -16,7 +16,7 @@ const ConversationList: React.FC<ConversationListProps> = ({ initialItems }) => 
 
     const [items, setItems] = useState(initialItems)
     const router = useRouter();
-    const { isOpen,conversationId } = useConversation();
+    const { isOpen, conversationId } = useConversation();
 
     return (
         <aside className={clsx(`
@@ -56,7 +56,7 @@ const ConversationList: React.FC<ConversationListProps> = ({ initialItems }) => 
                     <ConversationBox
                         key={item.id}
                         data={item}
-                        selected = {conversationId === item.id}
+                        selected={conversationId === item.id}
                     />
                 ))}
             </div>

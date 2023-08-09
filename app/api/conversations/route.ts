@@ -1,4 +1,4 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/app/actions/get-current-user";
 import { NextResponse } from "next/server";
 import prisma from "../../libs/prismadb"
 
@@ -23,7 +23,7 @@ export async function POST(
         }
 
         if (isGroup && (!members || members.length < 2 || !name)) {
-            return new NextResponse("Invalid Data, Location: api/conversations",{status: 400})
+            return new NextResponse("Invalid Data, Location: api/conversations", { status: 400 })
         }
 
         if (isGroup) {
@@ -112,6 +112,6 @@ export async function POST(
 
 
     } catch (error) {
-        return new NextResponse("Internal Error, Location: api/conversations",{status:500})
+        return new NextResponse("Internal Error, Location: api/conversations", { status: 500 })
     }
 }
